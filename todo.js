@@ -2,8 +2,8 @@
 const form=document.querySelector("#todo-form");
 const todoInput=document.querySelector("#todo");
 const todoList=document.querySelector(".list-group");
-const firstCardBody=document.querySelector(".card-body")[0];
-const secondCardBody=document.querySelector(".card-body")[1];
+const firstCardBody=document.querySelectorAll(".card-body")[0];
+const secondCardBody=document.querySelectorAll(".card-body")[1];
 const filter=document.querySelector("#filter");
 const clearButton=document.querySelector("#clear-todos");
 
@@ -15,9 +15,31 @@ function eventListener(){//Tüm event listenerlar
 
 function addTodo(e){
     const newTodo=todoInput.value.trim();
-    addTodoToUI(newTodo);
+    if(newTodo == ""){
+        showAlert("danger","Lütfen bir todo girin");
+    }
+    else
+    {
+        addTodoToUI(newTodo);
+        showAlert("success","Todo'nuz başarıyla eklenmiştir");
+    }
     e.preventDefault();
 }
+
+function showAlert(type,message){
+    const alert=document.createElement("div");
+    alert.className=`alert alert-${type}`;
+    alert.role="alert";
+    alert.innerHTML=`${message}`; //Birinci yol
+    //alert.textContent= message;   İkinci yol
+    firstCardBody.appendChild(alert);
+    //setTimeOut
+    setTimeout(function(){
+        alert.remove();
+    }, 1000);
+}
+
+
 function addTodoToUI(newTodo){//String değerini list item olarak UI'ya ekleyecek
 
 // <li class="list-group-item d-flex justify-content-between">
