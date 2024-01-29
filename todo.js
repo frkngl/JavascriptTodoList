@@ -12,14 +12,27 @@ eventListener();
 function eventListener(){//Tüm event listenerlar
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
+   
     secondCardBody.addEventListener("click", deleteTodo);
 }
-function deleteTodo(g){
-    if(g.target.className === "fa fa-remove")
+function deleteTodo(e){
+    if(e.target.className === "fa fa-remove")
     {
-        g.target.parentElement.parentElement.remove();
+        e.target.parentElement.parentElement.remove();
+        deleteTodoFromStorage(e.target.parentElement.parentElement.textContent);
         showAlert("success","Todo başarıyla silinmiştir"); 
     }
+}
+function deleteTodoFromStorage(deletetodo){
+    let todos = getTodosFromStorage();
+
+    todos.forEach(function(todo,index) {
+        if(todo === deletetodo){
+            todos.splice(index,1); //Array'den değeri silebiliriz.
+        } 
+    });
+
+    localStorage.setItem("todos",JSON.stringify(todos)); 
 }
 function loadAllTodosToUI(){
     let todos = getTodosFromStorage();
