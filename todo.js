@@ -18,7 +18,8 @@ function eventListener(){//Tüm event listenerlar
 }
 function clearAllTodos(e){
     if(confirm("Tüm todoları silmek istediğinize emin misiniz?"))
-    {
+    {   //Arayüzdeki todoları silme
+        //todoList.innerHTML=""; silme işlemi yavaş
         while(todoList.firstElementChild != null)
         {
             todoList.removeChild(todoList.firstElementChild);
