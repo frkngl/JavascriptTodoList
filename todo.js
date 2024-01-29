@@ -11,8 +11,15 @@ eventListener();
 
 function eventListener(){//Tüm event listenerlar
     form.addEventListener("submit",addTodo);
+    document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
 }
+function loadAllTodosToUI(){
+    let todos = getTodosFromStorage();
 
+    todos.forEach(function(todo) {
+        addTodoToUI(todo);
+    })
+}
 function addTodo(e){
     const newTodo=todoInput.value.trim();
     if(newTodo == ""){
