@@ -12,8 +12,25 @@ eventListener();
 function eventListener(){//Tüm event listenerlar
     form.addEventListener("submit",addTodo);
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI);
-   
     secondCardBody.addEventListener("click", deleteTodo);
+    filter.addEventListener("keyup",filterTodos);
+}
+function filterTodos(e){
+    const filterValue=e.target.value.toLowerCase();
+    const listItem=document.querySelectorAll(".list-group-item");
+
+    listItem.forEach(function(listItem){
+        const text=listItem.textContent.toLowerCase();
+
+        if(text.indexOf(filterValue) === -1)
+        {     //Bulamadı
+            listItem.setAttribute("style","display:none !important");
+        }
+        else
+        {
+            listItem.setAttribute("style","display:block");
+        }
+    });
 }
 function deleteTodo(e){
     if(e.target.className === "fa fa-remove")
